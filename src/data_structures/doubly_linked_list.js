@@ -32,38 +32,49 @@ class DoublyLinkedList {
   }
 
   insertHead(element) {
-    let newNode = new this.Node(element);
-    this._head().next = newNode;
-    this._sentinel.prev = newNode;
+    let newNode = new this.Node({element, next:this._head(), prev: this._sentinel});
+    this._head().prev = newNode;
+    this._sentinel.next = newNode;
     this.nodeCount ++ ;
-    return ;
+    return newNode;
 
   }
 
   insertTail(element) {
-    let newNode = new this.Node(element);
+    let newNode = new this.Node({element, next: this._sentinel, prev: this._tail});
     this._tail().next = newNode;
-    this._sentinel.next = newNode;
+    this._sentinel.prev = newNode;
     this.nodeCount ++ ;
     return newNode;
   }
 
   removeHead() {
-    this.nodeCount -- ;
-    return this._head().remove()
+    this.nodeCount --;
+    return this._head().remove();
   }
 
   removeTail() {
-    this.nodeCount -- ;
+    this.nodeCount --;
     return this._tail().remove()
   }
 
   remove(node) {
-    this.nodeCount --;
+    if (node.remove){
+      this.nodeCount --;
     return this.node.remove();
+    }
   }
 
   forEach(callback) {
+    // start from head node and iterate until we hit the sentinel node
+    // callback is some function provided by the client that needs to be implemented to each node
+    let j = 0;
+    let node = this._head();
+    while (node !== this._sentinel){
+      callback(node.element);
+      j ++;
+      node = node.next;
+    }
   }
 
   count() {
