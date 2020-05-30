@@ -4,7 +4,6 @@ class DLLNode {
     this.next = next;
     this.prev = prev;
     this._active = !isSentinel;
-    this.nodeCount = 0;
   }
 
   remove() {
@@ -21,6 +20,7 @@ class DoublyLinkedList {
   constructor(Node = DLLNode) {
     this.Node = Node;
     this._sentinel = new this.Node({ isSentinel: true });
+    this.nodeCount = 0;
   }
 
   _head() {
@@ -49,17 +49,17 @@ class DoublyLinkedList {
   }
 
   removeHead() {
-    this.nodeCount -= 1
-    return _._head().removeHead
+    this.nodeCount -- ;
+    return this._head().remove()
   }
 
   removeTail() {
-    this.nodeCount -= 1
-    return this._tail().removeTail
+    this.nodeCount -- ;
+    return this._tail().remove()
   }
 
   remove(node) {
-    this.nodeCount -= 1
+    this.nodeCount --;
     return this.node.remove();
   }
 
